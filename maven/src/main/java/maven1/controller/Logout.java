@@ -22,6 +22,6 @@ public class Logout extends HttpServlet {
         }
 
         // Quay lại trang Login
-        response.sendRedirect("Login.html");
+        response.sendRedirect("Login1.html");
     }
 }

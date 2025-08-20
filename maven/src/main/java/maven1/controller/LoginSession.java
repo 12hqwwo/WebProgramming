@@ -33,15 +33,17 @@ public class LoginSession extends HttpServlet {
         String password = request.getParameter("password");
 
         if ("hnq".equals(username) && "123".equals(password)) {
-            // Tạo session
+            // ✅ Tạo session
             HttpSession session = request.getSession();
             session.setAttribute("name", username);
 
-            
+            // ✅ Đăng nhập thành công → chuyển đến /profile
+            response.sendRedirect(request.getContextPath() + "/profile");
+
         } else {
-            // Sai thông tin → quay lại trang Login
+            // ❌ Sai thông tin → quay lại trang Login.html
             request.setAttribute("errorMessage", "Thông tin bạn nhập không chính xác!");
-            request.getRequestDispatcher("Login.html").forward(request, response);
+            request.getRequestDispatcher("/Login1.html").forward(request, response);
         }
     }
 }

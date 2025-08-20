@@ -23,11 +23,11 @@ public class Profile extends HttpServlet {
         HttpSession session = request.getSession(false); // false để không tạo mới
         if(session!=null){
         	String name=(String)session.getAttribute("name");
-        	out.print("Chào bạn, "+name+" đến với trang quản lý tài khoản");
+        	out.print("Chào bạn "+name+" đã đến với trang quản lý tài khoản");
         	}
         	else {
         	out.print("Xin vui lòng đăng nhập");
-        	response.sendRedirect("Login.html");
+        	response.sendRedirect("Login1.html");
     
         	}
         }
