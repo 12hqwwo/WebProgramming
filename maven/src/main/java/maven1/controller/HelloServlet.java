@@ -33,7 +33,7 @@ public class HelloServlet extends HttpServlet {
 		}
 
 		// Hiển thị lên trang
-		printWriter.println("<h2>Xin chao " + name + "!</h2>");
+		printWriter.println("Xin chao " + name + "!");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
