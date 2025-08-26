@@ -15,6 +15,13 @@
 		<servlet-name>Profile</servlet-name>
 		<servlet-class>maven1.controller.Profile</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>mySQL</display-name>
+		<servlet-name>mySQL</servlet-name>
+		<servlet-class>maven1.model.mySQL</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/Logout</url-pattern>
@@ -22,6 +29,10 @@
 	<servlet-mapping>
 		<servlet-name>Profile</servlet-name>
 		<url-pattern>/Profile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>mySQL</servlet-name>
+		<url-pattern>/mySQL</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
