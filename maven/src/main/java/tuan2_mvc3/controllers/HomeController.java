@@ -1,4 +1,4 @@
-package vn.iostar.controllers;
+package tuan2_mvc3.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

@@ -1,4 +1,4 @@
-package vn.iostar.models;
+package tuan2_mvc3.models;
 
 import java.io.Serializable;
 

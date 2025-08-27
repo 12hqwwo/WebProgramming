@@ -1,6 +1,6 @@
-package vn.iostar.services;
+package tuan2_mvc3.services;
 
-import vn.iostar.models.User;
+import tuan2_mvc3.models.User;
 
 public interface UserService {
 

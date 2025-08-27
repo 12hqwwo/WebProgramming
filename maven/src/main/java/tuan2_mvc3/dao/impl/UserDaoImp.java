@@ -1,12 +1,12 @@
-package vn.iostar.dao.impl;
+package tuan2_mvc3.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import tuan2.DBConnection;
-import vn.iostar.dao.UserDao;
-import vn.iostar.models.User;
+import tuan2_mvc3.dao.UserDao;
+import tuan2_mvc3.models.User;
 
 public class UserDaoImp implements UserDao {
 	public Connection conn = null;

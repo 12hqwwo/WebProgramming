@@ -1,6 +1,6 @@
-package vn.iostar.dao;
+package tuan2_mvc3.dao;
 
-import vn.iostar.models.User;
+import tuan2_mvc3.models.User;
 
 public interface UserDao {
 	User get(String username);
