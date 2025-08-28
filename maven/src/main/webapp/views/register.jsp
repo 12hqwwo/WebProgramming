@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Đăng nhập</title>
+<title>Đăng ký tài khoản</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
 </head>
 <body class="bg-light">
@@ -14,17 +14,14 @@
         <div class="col-md-6">
             <div class="card shadow rounded">
                 <div class="card-body">
-                    <h2 class="text-center mb-4">Đăng nhập</h2>
+                    <h2 class="text-center mb-4">Tạo tài khoản mới</h2>
 
-                    <!-- Thông báo lỗi hoặc thành công -->
+                    <!-- Thông báo lỗi -->
                     <c:if test="${alert != null}">
                         <div class="alert alert-danger">${alert}</div>
                     </c:if>
-                    <c:if test="${msg != null}">
-                        <div class="alert alert-success">${msg}</div>
-                    </c:if>
 
-                    <form action="${pageContext.request.contextPath}/trangchu" method="post">
+                    <form action="${pageContext.request.contextPath}/register" method="post">
                         <div class="mb-3">
                             <label class="form-label">Tài khoản</label>
                             <input type="text" name="username" class="form-control" required>
@@ -35,11 +32,21 @@
                             <input type="password" name="password" class="form-control" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Họ và tên</label>
+                            <input type="text" name="fullname" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
                     </form>
 
                     <div class="text-center mt-3">
-                        <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký</a></p>
+                        <p>Bạn đã có tài khoản? <a href="${pageContext.request.contextPath}/trangchu">Đăng nhập</a></p>
                     </div>
                 </div>
             </div>
