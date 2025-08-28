@@ -27,7 +27,7 @@ public class Profile extends HttpServlet {
         	}
         	else {
         	out.print("Xin vui lòng đăng nhập");
-        	response.sendRedirect("Login1.html");
+        	response.sendRedirect("/views/login.jsp");
     
         	}
         }

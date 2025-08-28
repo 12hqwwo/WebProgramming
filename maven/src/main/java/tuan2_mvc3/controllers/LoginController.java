@@ -14,82 +14,74 @@ import tuan2_mvc3.services.UserService;
 import tuan2_mvc3.services.impl.UserServiceImp;
 import jakarta.servlet.RequestDispatcher;
 
-@WebServlet("/trangchu")
+@WebServlet(urlPatterns = "/trangchu")
 public class LoginController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // hằng số
-    public static final String SESSION_USERNAME = "username";
-    public static final String COOKIE_REMEMBER = "username";
+	// hằng số
+	public static final String SESSION_USERNAME = "username";
+	public static final String COOKIE_REMEMBER = "username";
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // check session
-        HttpSession session = req.getSession(false);
-        if (session != null && session.getAttribute("account") != null) {
-            resp.sendRedirect(req.getContextPath() + "/waiting");
-            return;
-        }
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// check session
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("account") != null) {
+			req.getRequestDispatcher("views/waiting.jsp").forward(req, resp);
+			// return;
+		}
 
-        // check cookie
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (COOKIE_REMEMBER.equals(cookie.getName())) {
-                    session = req.getSession(true);
-                    session.setAttribute("username", cookie.getValue());
-                    resp.sendRedirect(req.getContextPath() + "/waiting");
-                    return;
-                }
-            }
-        }
+		// check cookie
+		Cookie[] cookies = req.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (COOKIE_REMEMBER.equals(cookie.getName())) {
+					session = req.getSession(true);
+					session.setAttribute("username", cookie.getValue());
+					req.getRequestDispatcher("views/waiting.jsp").forward(req, resp);
+					// return;
+				}
+			}
+		}
 
-        RequestDispatcher rd = req.getRequestDispatcher("views/login.jsp");
-        rd.forward(req, resp);
-    }
+		RequestDispatcher rd = req.getRequestDispatcher("views/login.jsp");
+		rd.forward(req, resp);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding("UTF-8");
-        req.setCharacterEncoding("UTF-8");
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html");
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String remember = req.getParameter("remember");
-        boolean isRememberMe = "on".equals(remember);
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
+		String remember = req.getParameter("remember");
+		boolean isRememberMe = "on".equals(remember);
 
-        String alertMsg = "";
+		String alertMsg = "";
 
-        if (username.isEmpty() || password.isEmpty()) {
-            alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
-            req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("views/login.jsp").forward(req, resp);
-            return;
-        }
+		if (username.isEmpty() || password.isEmpty()) {
+			alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
+			req.setAttribute("alert", alertMsg);
+			req.getRequestDispatcher("views/login.jsp").forward(req, resp);
+			return;
+		}
 
-        UserService service = new UserServiceImp();
-        User user = service.login(username, password);
+		UserService service = new UserServiceImp();
+		User user = service.login(username, password);
 
-        if (user != null) {
-            HttpSession session = req.getSession(true);
-            session.setAttribute("account", user);
+		if (user != null) {
+			HttpSession session = req.getSession(true);
+			session.setAttribute("account", user);
 
-            if (isRememberMe) {
-                saveRememberMe(resp, username);
-            }
 
-            resp.sendRedirect(req.getContextPath() + "/waiting");
-        } else {
-            alertMsg = "Tài khoản hoặc mật khẩu không đúng";
-            req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("views/login.jsp").forward(req, resp);
-        }
-    }
+			req.getRequestDispatcher("views/waiting.jsp").forward(req, resp);
+		} else {
+			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
+			req.setAttribute("alert", alertMsg);
+			req.getRequestDispatcher("views/login.jsp").forward(req, resp);
+		}
+	}
 
-    private void saveRememberMe(HttpServletResponse response, String username) {
-        Cookie cookie = new Cookie(COOKIE_REMEMBER, username);
-        cookie.setMaxAge(30 * 60); // 30 phút
-        response.addCookie(cookie);
-    }
 }

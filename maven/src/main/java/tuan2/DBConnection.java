@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 public class DBConnection {
     private final String serverName = "localhost"; // hoặc IP
-    private final String dbName = "LTWEB";
+    private final String dbName = "Tuan2MVC3DB";
     private final String portNumber = "1433";
     private final String instance = ""; // nếu có instance: "SQLEXPRESS"
     private final String userID = "sa";

@@ -15,19 +15,16 @@ import tuan2_mvc3.models.User;
 public class WaitingController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("account") != null) {
 			User u = (User) session.getAttribute("account");
 			req.setAttribute("username", u.getUserName());
-			if (u.getId() == 1) {
-				resp.sendRedirect(req.getContextPath() + "/admin/home");
-			} else if (u.getId() == 2) {
-				resp.sendRedirect(req.getContextPath() + "/manager/home");
-			} else {
-				resp.sendRedirect(req.getContextPath() + "/home");
-			}
+
+			// Thay vì redirect ngay, forward sang waiting.jsp
+			req.getRequestDispatcher("/views/waiting.jsp").forward(req, resp);
+
 		} else {
-			resp.sendRedirect(req.getContextPath() + "/login");
+			resp.sendRedirect(req.getContextPath() + "/trangchu");
 		}
 	}
 }
