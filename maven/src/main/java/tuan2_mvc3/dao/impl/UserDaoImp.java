@@ -39,23 +39,25 @@ public class UserDaoImp implements UserDao {
 
 	@Override
 	public void insert(User user) {
-	String sql = "INSERT INTO [User](email, username, fullname, password, avatar) VALUES (?,?,?,?,?)";
-	try {
-	conn = new DBConnection().getConnection();
-	ps = conn.prepareStatement(sql);
-	ps.setString(1, user.getEmail());
-	ps.setString(2, user.getUserName());
-	ps.setString(3, user.getFullName());
-	ps.setString(4, user.getPassWord());
-	ps.setString(5, user.getAvatar());
-	ps.executeUpdate();
-	} catch (Exception e) {e.printStackTrace();}
+		String sql = "INSERT INTO [User](email, username, fullname, password, avatar) VALUES (?,?,?,?,?)";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getEmail());
+			ps.setString(2, user.getUserName());
+			ps.setString(3, user.getFullName());
+			ps.setString(4, user.getPassWord());
+			ps.setString(5, user.getAvatar());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public boolean checkExistEmail(String email) {
 		boolean duplicate = false;
-		String query = "select * from [user] where email = ?";
+		String query = "select * from [User] where email = ?";
 		try {
 			conn = new DBConnection().getConnection();
 			ps = conn.prepareStatement(query);
@@ -88,5 +90,21 @@ public class UserDaoImp implements UserDao {
 		} catch (Exception ex) {
 		}
 		return duplicate;
+	}
+
+
+	@Override
+	public void updatePassword(String email, String newPassword) {
+	    try {
+	        String sql = "UPDATE [User] SET password=? WHERE email=?";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setString(1, newPassword);
+	        ps.setString(2, email);
+
+	        int rows = ps.executeUpdate();
+	        conn.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 }

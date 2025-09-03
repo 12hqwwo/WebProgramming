@@ -11,4 +11,6 @@ public interface UserDao {
 
 	boolean checkExistUsername(String username);
 
+	void updatePassword(String email, String newPassword);
+
 }
