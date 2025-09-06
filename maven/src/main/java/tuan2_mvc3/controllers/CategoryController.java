@@ -21,7 +21,14 @@ public class CategoryController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Category> cateList = cateService.getAll();
 		req.setAttribute("cateList", cateList);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/views/admin/listcategory.jsp");
-		dispatcher.forward(req, resp);
+
+
+	        // thêm contentPage để layout biết include trang nào
+	        req.setAttribute("contentPage", "/views/list-category.jsp");
+
+	        // khai báo dispatcher
+	        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/admin-layout.jsp");
+	        dispatcher.forward(req, resp);
 	}
+	
 }

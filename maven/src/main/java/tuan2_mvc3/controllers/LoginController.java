@@ -27,9 +27,10 @@ public class LoginController extends HttpServlet {
 		// check session
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("account") != null) {
-			req.getRequestDispatcher("views/waiting.jsp").forward(req, resp);
-			// return;
+		    resp.sendRedirect(req.getContextPath() + "/admin/category/list");
+		    return;
 		}
+
 
 		// check cookie
 		Cookie[] cookies = req.getCookies();
@@ -72,12 +73,13 @@ public class LoginController extends HttpServlet {
 		User user = service.login(username, password);
 
 		if (user != null) {
-			HttpSession session = req.getSession(true);
-			session.setAttribute("account", user);
+		    HttpSession session = req.getSession(true);
+		    session.setAttribute("account", user);
 
+		    resp.sendRedirect(req.getContextPath() + "/admin/category/list");
+		}
 
-			req.getRequestDispatcher("views/waiting.jsp").forward(req, resp);
-		} else {
+		 else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			req.setAttribute("alert", alertMsg);
 			req.getRequestDispatcher("views/login.jsp").forward(req, resp);

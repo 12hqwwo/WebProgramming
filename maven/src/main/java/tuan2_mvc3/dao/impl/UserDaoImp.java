@@ -92,19 +92,37 @@ public class UserDaoImp implements UserDao {
 		return duplicate;
 	}
 
-
 	@Override
 	public void updatePassword(String email, String newPassword) {
-	    try {
-	        String sql = "UPDATE [User] SET password=? WHERE email=?";
-	        PreparedStatement ps = conn.prepareStatement(sql);
-	        ps.setString(1, newPassword);
-	        ps.setString(2, email);
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = new DBConnection().getConnection();
+			String sql = "UPDATE [User] SET password=? WHERE email=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, newPassword);
+			ps.setString(2, email);
 
-	        int rows = ps.executeUpdate();
-	        conn.commit();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+			int rows = ps.executeUpdate();
+
+			if (rows > 0) {
+				System.out.println("Password updated successfully for: " + email);
+			} else {
+				System.out.println("No user found with email: " + email);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+			}
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
 	}
 }
